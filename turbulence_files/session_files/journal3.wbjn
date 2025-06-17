@@ -1,0 +1,89 @@
+# encoding: utf-8
+# 2022 R1
+SetScriptVersion(Version="22.1.217")
+system1 = GetSystem(Name="FFF")
+results1 = system1.GetContainer(ComponentName="Results")
+results1.Edit()
+results1.SendCommand(Command="""VIEW:View 1
+  Light Angle = 50, 110
+END
+
+VIEW:View 2
+  Light Angle = 50, 110
+END
+
+VIEW:View 3
+  Light Angle = 50, 110
+END
+
+VIEW:View 4
+  Light Angle = 50, 110
+END
+
+> update
+# Sending visibility action from ViewUtilities
+>hide /VECTOR:Vector 1, view=/VIEW:View 1""")
+results1.SendCommand(Command="""VIEW:View 1
+  Camera Mode = User Specified
+  CAMERA:
+    Option = Pivot Point and Quaternion
+    Pivot Point = 0.3904, 0.0326742, 0.00037792
+    Scale = 3.72438
+    Pan = 0.200645, -0.00779205
+    Rotation Quaternion = 0.00857891, 0.0685582, -0.00977555, 0.99757
+    
+  END
+
+END
+
+> update
+# Sending visibility action from ViewUtilities
+>show /VECTOR:Vector 1, view=/VIEW:View 1""")
+results1.SendCommand(Command="> autolegend plot=/VECTOR:Vector 1, view=VIEW:View 1")
+results1.SendCommand(Command="""# Sending visibility action from ViewUtilities
+>hide /CONTOUR:Contour 1, view=/VIEW:View 1""")
+results1.SendCommand(Command="""HARDCOPY:
+Antialiasing = On
+Hardcopy Filename = C:/Users/Tania/OneDrive - IIT Kanpur/Documents/FFF.png
+Hardcopy Format = png
+Hardcopy Tolerance = 0.0001
+Image Height = 600
+Image Scale = 100
+Image Width = 600
+JPEG Image Quality = 80
+Use Screen Size = On
+White Background = Off
+END
+>print""")
+results1.SendCommand(Command="""# Sending visibility action from ViewUtilities
+>show /CONTOUR:Contour 1, view=/VIEW:View 1""")
+results1.SendCommand(Command="""# Sending visibility action from ViewUtilities
+>hide /VECTOR:Vector 1, view=/VIEW:View 1""")
+results1.SendCommand(Command="""HARDCOPY:
+Antialiasing = On
+Hardcopy Filename = C:/Users/Tania/OneDrive - IIT Kanpur/Documents/FFF2.png
+Hardcopy Format = png
+Hardcopy Tolerance = 0.0001
+Image Height = 600
+Image Scale = 100
+Image Width = 600
+JPEG Image Quality = 80
+Use Screen Size = On
+White Background = Off
+END
+>print""")
+results1.SendCommand(Command="""HARDCOPY:
+Antialiasing = On
+Hardcopy Filename = C:/Users/Tania/OneDrive - IIT Kanpur/Documents/FFF2.jpg
+Hardcopy Format = jpg
+Hardcopy Tolerance = 0.0001
+Image Height = 600
+Image Scale = 101
+Image Width = 600
+JPEG Image Quality = 100
+Use Screen Size = On
+White Background = Off
+END
+>print""")
+results1.Exit()
+Save(Overwrite=True)
